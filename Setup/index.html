@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Slayer</title>
+
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">YOU</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" v-bind:style="{width: playerHealth + '%'}" style="background-color: green; margin: 0; color: white;">
+                    {{ playerHealth }}
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center">MONSTER</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" v-bind:style="{width: monsterHealth + '%'}" style="background-color: green; margin: 0; color: white;">
+                    {{ monsterHealth }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row controls" v-if="!gameIsRunning">
+        <div class="small-12 columns">
+            <button id="start-game" v-on:click="startGame">START NEW GAME</button>
+        </div>
+    </section>
+    <section class="row controls" v-else>
+        <div class="small-12 columns">
+            <button id="attack" v-on:click="attack">ATTACK</button>
+            <button id="special-attack" v-on:click="specialAttack">SPECIAL ATTACK</button>
+            <button id="heal" v-on:click="heal">HEAL</button>
+            <button id="give-up" v-on:click="giveUp">GIVE UP</button>
+        </div>
+    </section>
+    <section class="row log" v-if="turns.length > 0">
+        <div class="small-12 columns">
+            <ul>
+                <li v-for="turn of turns">
+                    <div v-if="turn.isPlayer" v-bind:class="['player-turn']">{{ turn.text }}</div>
+                    <div v-else v-bind:class="['monster-turn']">{{ turn.text }}</div>
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+<script src='app.js'></script>  
+</body>
+</html>
